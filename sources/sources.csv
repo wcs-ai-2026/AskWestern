@@ -1,0 +1,48 @@
+source_id,category,status,robots_allowed,notes,url
+ACD001,Academic Info,checked,yes,Academic Calendar,https://www.westerncalendar.uwo.ca/SessionalDates.cfm?SelectedCalendar=Live&ArchiveID=
+ACD002,Academic Info,checked,yes,Degree Requirements,https://westerncalendar.uwo.ca/PolicyPages.cfm?PolicyCategoryID=4&command=showCategory&SelectedCalendar=Live&ArchiveID=
+ACD003,Academic Info,checked,yes,Academic Policy,https://westerncalendar.uwo.ca/PolicyPages.cfm?PolicyCategoryID=1&command=showCategory&SelectedCalendar=Live&ArchiveID=
+ACD004,Academic Info,checked,yes,Courses,https://westerncalendar.uwo.ca/Courses.cfm?SelectedCalendar=Live&ArchiveID=
+ACD005,Academic Info,checked,yes,Course Registration,https://westerncalendar.uwo.ca/PolicyPages.cfm?PolicyCategoryID=6&command=showCategory&SelectedCalendar=Live&ArchiveID=
+ACD006,Academic Info,checked,yes,Examinations,https://westerncalendar.uwo.ca/PolicyPages.cfm?PolicyCategoryID=5&command=showCategory&SelectedCalendar=Live&ArchiveID=
+REG001,Registrar,checked,yes,Important Dates,https://registrar.uwo.ca/resources/important_dates_and_deadlines.html
+REG002,Registrar,checked,yes,OSAP Information,https://registrar.uwo.ca/student_finances/osap_government_loans/ontario_student_assistance_program_osap.html
+REG003,Registrar,checked,yes,ONECard Information,https://registrar.uwo.ca/services/western_onecard_and_photo_standards.html
+REG004,Registrar,checked,yes,Fees and Refunds,https://registrar.uwo.ca/student_finances/fees_refunds/index.html
+REG005,Registrar,checked,yes,Merit Scholarships,https://registrar.uwo.ca/student_finances/scholarships_awards/in_course/scholarship_awards.html
+REG006,Registrar,checked,yes,Need Based Awards,https://registrar.uwo.ca/student_finances/scholarships_awards/in_course/needs_based_awards.html
+REG007,Registrar,checked,yes,External Scholarships,https://registrar.uwo.ca/student_finances/scholarships_awards/external_scholarships_awards.html
+REG008,Registrar,checked,yes,Western Initiatives,https://registrar.uwo.ca/student_finances/western_initiatives.html
+REG009,Registrar,checked,yes,Financial Counseling,https://registrar.uwo.ca/student_finances/financial_counselling/index.html
+HOU001,Housing,checked,Public page not blocked by robots.txt,Residence Buildings,https://residence.uwo.ca/buildings/all
+HOU002,Housing,checked,Public page not blocked by robots.txt,Residence Applications,https://residence.uwo.ca/applying/key_steps
+HOU003,Housing,checked,Public page not blocked by robots.txt,Residence Fees,https://residence.uwo.ca/applying/fees_and_payment
+HOU004,Housing,checked,Public page not blocked by robots.txt,Residence Deadlines,https://residence.uwo.ca/applying/important_dates_and_deadlines
+HOU005,Housing,checked,Public page not blocked by robots.txt,Housing Options,https://housing.uwo.ca/living/housing-options
+FAC001,Faculty,checked,yes,Arts and Humanities,https://www.uwo.ca/arts/
+FAC002,Faculty,checked,yes,Music,https://music.uwo.ca/
+FAC003,Faculty,checked,yes,Education,https://www.edu.uwo.ca/
+FAC004,Faculty,checked,yes,Engineering,https://www.eng.uwo.ca/
+FAC005,Faculty,checked,yes,Health Sciences,https://www.uwo.ca/fhs/
+FAC006,Faculty,checked,yes,Information and Media Studies,https://www.fims.uwo.ca/
+FAC007,Faculty,checked,yes,Ivey Business School,https://www.ivey.uwo.ca/
+FAC008,Faculty,checked,yes,Law,https://law.uwo.ca/
+FAC009,Faculty,checked,yes,Medical Sciences,https://www.schulich.uwo.ca/find-your-program/undergraduate/bmsc.html
+FAC010,Faculty,checked,yes,Sciences,https://www.uwo.ca/sci/
+FAC011,Faculty,checked,yes,Social Science,https://www.ssc.uwo.ca/
+ADV001,Academic Advising,checked,yes,Arts and Humanities Advising,https://www.uwo.ca/arts/counselling/
+ADV002,Academic Advising,checked,yes,Engineering Advising,https://www.eng.uwo.ca/undergraduate/
+ADV003,Academic Advising,checked,yes,Music Advising,https://music.uwo.ca/current-students/undergraduate/student-services.html
+ADV004,Academic Advising,checked,yes,Sciences Advising,https://www.uwo.ca/sci/advising/
+ADV005,Academic Advising,checked,yes,Social Sciences Advising,http://counselling.ssc.uwo.ca/
+ADV006,Academic Advising,checked,yes,Kinesiology Advising,https://www.uwo.ca/fhs/kin/undergrad/academic/index.html
+ADV007,Academic Advising,checked,yes,Nursing Advising,https://www.uwo.ca/fhs/nursing/undergrad/academic/index.html
+ADV008,Academic Advising,checked,yes,Health Sciences Advising,https://www.uwo.ca/fhs/shs/academic_counselling/index.html
+ADV009,Academic Advising,checked,yes,Dentistry Advising,https://www.schulich.uwo.ca/dentistry/current_students/student_services.html
+ADV010,Academic Advising,checked,yes,Ivey Business School Advising,https://www.ivey.uwo.ca/hba/
+ADV011,Academic Advising,checked,not_checked,Law Advising,https://law.uwo.ca/current_students/student_services/index.html
+ADV012,Academic Advising,checked,yes,Medical Sciences Advising,https://www.schulich.uwo.ca/bmsc/academic-resources/advising/index.html
+SE001,Student Experience,checked,yes,Health and Wellness,https://www.uwo.ca/health/index.html
+SE002,Student Experience,checked,yes,Leadership and Learning,https://studentexperience.uwo.ca/leadership-learning/el-l.html
+SE003,Student Experience,checked,yes,Orientation,https://studentexperience.uwo.ca/connect/orientation-transition.html
+SE004,Student Experience,checked,yes,Sports and Recreation,https://westernmustangs.ca/
