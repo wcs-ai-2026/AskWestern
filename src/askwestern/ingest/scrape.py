@@ -12,8 +12,6 @@ import time #for waiting between requests
 import json    #for saving dictionaries as JSON
 from datetime import date   #for retrieving date related info
 
-from tempfile import TemporaryDirectory #creates folder for temp work (testin metadata)
-
 
 #defined file paths
 sources_file = Path("sources/sources.csv")
@@ -34,17 +32,6 @@ def get_registrar_source():
                 registrar_sources.append(row)
 
     return registrar_sources    
-
-"""test get_registrar_sources
-    if __name__ == "__main__":
-    sources = get_registrar_source()
-    print(f"Found {len(sources)} Registrar sources:\n")
-    for s in sources:
-        print(f"ID: {s['source_id']}")        
-        print(f"Name: {s['notes']}")
-        print(f"URL: {s['url']}")
-        print()
-"""
 
 #this function checks the robots.txt file for each source
 def check_robots(url):
@@ -114,31 +101,6 @@ def extract_text(html):
     #text = soup.get_text(separator = " ", strip = True)
     return text    
 
-# the testing below returned "could not verify" with status code 302 {page was getting redirected to a 404 not found page}
-# so i am adding an extract text function to test HTML extraction using the seed files
-#testing the robots fucntion
-#if __name__ == '__main__':
-#    sources = get_registrar_source()
-#    first_source = sources[0]
-#    print(f"Checking: {first_source['notes']}")
-#    allowed = check_robots(first_source["url"])
-
-#   if allowed:
-#        print("Robots.txt allows this page for the scraper.")
-#    else:
-#        print("Automated access is not allowed.")    
-
-
-#test for the extract function with one of the existing html seed pages
-#if __name__ == "__main__":
-#    seed_file = Path("data/seed/REG001.html")
-#    with open(seed_file, mode = "r", encoding = "utf-8") as file:
-#        html = file.read()
-
-#    extracted_text = extract_text(html)
-#    print("text: ")
-#    print(extracted_text[:1000])   
-
 #this function creates metadata for a seed page
 def create_metadata(source):
     #dictionary from sources.csv
@@ -151,22 +113,6 @@ def create_metadata(source):
     }
 
     return metadata
-
-#testing the metadata function
-#if __name__ == "__main__":
-#    sources = get_registrar_source()
-#    first_source = sources[0]
-#    seed_file = Path("data/seed/REG001.html")
-#    html = seed_file.read_text(encoding = "utf-8")
-
-#    extracted_text = extract_text(html)
-#    metadata = create_metadata(first_source)
-#    print("source metadata: ")
-
-#    for key, value in metadata.items():
-#        print(f"{key}: {value}")
-
-#    print(f"\ntext length: {len(extracted_text)}")    
 
 #this function downloads and saves approved registrar webpages
 def download_page(source):
@@ -223,18 +169,6 @@ def download_page(source):
         print(f"Error downloading {source_id}: {error}")
         return False
 
-# testing the download fucntion
-#if __name__ == "__main__":
-#    sources = get_registrar_source()
-#    first_source = sources[0]
-#    print(f"Attempting to download: {first_source['notes']}")
-#    success = download_page(first_source)
-
-#    if success: 
-#        print("download successful")
-#    else:
-#        print("download unsuccessful")    
-
 #save metadata for automatically downloaded webpage
 def save_scrape_metadata(source, output_file):
     #the metadata dictionary
@@ -253,23 +187,6 @@ def save_scrape_metadata(source, output_file):
     )
 
     print(f"Saved metadata to: {metadata_file}")
-
-
-#testing metadata function (DONT TEST YET THIS WILL CREATE A JSON)
-#if __name__ == "__main__":
-#    sources = get_registrar_source()
-#    first_source = sources[0]
-
-    #rhis will create a temp folder 
-#    with TemporaryDirectory() as temp_dir:
-#        test_file = Path(temp_dir) / "REG001.html" #this is a temp file path in the temp dir
-#        save_scrape_metadata(first_source, test_file)
-#        metadata_file = test_file.with_suffix(".json")
-#        saved_metadata = json.loads(metadata_file.read_text(encoding = "utf-8")) #converts json text back to python
-#        print("\nSaved metadata:")
-
-#        for key, value in saved_metadata.items():
-#            print(f"{key}: {value}")
 
 # this is the MAIN scraper function
 def run_scraper(preview = True):
