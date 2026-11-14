@@ -166,3 +166,21 @@ class TestRegistrarScraper(unittest.TestCase):
                 self.assertFalse(metadata_file.exists())
 
         mock_get.assert_called_once()        
+
+    #testing the download of pages with missing robots.txt files
+    @patch("src.askwestern.ingest.scrape.requests.get")
+    def test_missing_robots(self, mock_get):
+        #simulate page without robots.txt
+        fake_response = Mock()
+        fake_response.status_code = 404
+        mock_get.return_value = fake_response
+
+        #sample url
+        url = "https://registrar.uwo.ca/example.html"
+
+        #check if scraper considers the url allowed
+        allowed = scrape.check_robots(url)
+
+        self.assertTrue(allowed) #missing robots file should not block scraping
+        mock_get.assert_called_once() #verify robots file was requested
+

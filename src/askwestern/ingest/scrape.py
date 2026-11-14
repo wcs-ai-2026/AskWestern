@@ -54,27 +54,30 @@ def check_robots(url):
             allow_redirects = False
         )
 
-        if res.status_code != 200:
-            print(f"Could not verify robots.txt. HTTP status: {res.status_code}")
+        #if the robots.txt file is missing
+        if res.status_code in [404, 410]:
+            print("Robots.txt does not exist.")
+            return True
 
-            if res.status_code in [301, 302, 307, 308]:
-                redirect_url = res.headers.get("Location")
-                print(f"Redirect dest: {redirect_url}")
-            print("Skipping automated collection until permissions are verified")
-            return False    
-            #print("Could not verify robots.txt. Skipping")
-            #return False
+        #handle other redirects
+        if res.status_code in [301, 302, 307, 308]:
+            redirect_url = res.headers.get("Location")
+            print(f"Robots.txt redirects to: {redirect_url}")
+            print("Redirect requires verification before scraping.")
+            return False
 
-            
-
-        #read the rules iin the file
+        #read robots.txt rules
         robots = RobotFileParser()
         robots.parse(res.text.splitlines())
 
+        #check if the scraper is allowed to access page
+        allowed = robots.can_fetch(user_agent, url)
+        if allowed:
+            print("Robots.txt allows scraping")
+        else:
+            print("Robots.txt does not allow scraping")
 
-        # true: rules allow access, false: not allowed to access
-        return robots.can_fetch(user_agent, url)
-
+        return allowed
     except requests.RequestException as error:
         print(f"Error checking robots.txt: {error}")
         return False
