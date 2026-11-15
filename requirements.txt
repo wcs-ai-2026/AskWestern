@@ -1,3 +1,5 @@
 chromadb
 requests
 beautifulsoup4
+sentence-transformers
+pytest
