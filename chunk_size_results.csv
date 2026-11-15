@@ -1,0 +1,4 @@
+configuration,chunk_size,overlap,chunks,hits,questions,hit_rate_at_5,misses
+small,500,100,1778,21,23,0.913,"Q010,Q011"
+medium,1000,200,892,20,23,0.8696,"Q010,Q011,Q012"
+large,1500,300,602,20,23,0.8696,"Q010,Q011,Q012"
