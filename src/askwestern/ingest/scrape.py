@@ -1,7 +1,7 @@
 #import libraries
 import csv
 from pathlib import Path #for working with file/folder locations
-from urllib.parse import urlparse  #breaks down URL into its components (scheme,domain,path)
+from urllib.parse import urlparse, urljoin  #breaks down URL into its components (scheme,domain,path), urljoin turns loc to complete url
 from urllib.robotparser import RobotFileParser  #interprets robots.txt rules 
 
 import requests #for retrieving info from webpages
@@ -61,11 +61,21 @@ def check_robots(url):
 
         #handle other redirects
         if res.status_code in [301, 302, 307, 308]:
-            redirect_url = res.headers.get("Location")
-            print(f"Robots.txt redirects to: {redirect_url}")
-            print("Redirect requires verification before scraping.")
+            redirect_location = res.headers.get("Location", "")
+            redirect_url = urljoin(robots_url, redirect_location)
+
+            #handle the verified missing file redirect
+            if(res.status_code == 302 and redirect_url == "https://registrar.uwo.ca/404.html"):
+                print("Registrar robots.txt redirects to its missing file page")
+                return True
+            print(f"Unexpected robots.txt redirect: {redirect_url}")
             return False
 
+        #handle other unexpected responses
+        if res.status_code != 200:
+            print(f"Could not verify robots.txt. HTTP status: {res.status_code}")
+            return False
+        
         #read robots.txt rules
         robots = RobotFileParser()
         robots.parse(res.text.splitlines())
