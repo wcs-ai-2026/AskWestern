@@ -15,7 +15,6 @@ from datetime import date   #for retrieving date related info
 
 #defined file paths
 sources_file = Path("sources/sources.csv")
-output_dir = Path("data/raw/registrar")
 user_agent = "WCS-AskWestern/1.0"
 
 # this function gets the regstrar sources from the csv file
@@ -33,17 +32,64 @@ def get_registrar_source():
 
     return registrar_sources    
 
+#this function is for retrieving all sources listed in sources.csv
+def get_all_sources():
+    all_sources = []
+
+    with open(sources_file, mode = "r", encoding = "utf-8-sig", newline = "") as file:
+        reader = csv.DictReader(file)
+
+        #iterate every row in sources.csv, add records to the list
+        #different from previous function because it doensn't only look for "Registrar"
+        for row in reader:
+            all_sources.append(row)
+    return all_sources
+
+#this function consrtucts a url for the robots.txt file for a webpage
+def get_robots_url(url):
+    parsed_url = urlparse(url) #separates the passed url into its components
+
+    #make sure url uses https and has a hostname
+    if parsed_url.scheme != "https" or not parsed_url.hostname:
+        return None
+
+    #create the robot.txt url 
+    robots_url = f"https://{parsed_url.hostname}/robots.txt"
+
+    return robots_url
+
+#this is a helper function that organizes the downloaded resources into folders based on their category
+def get_output_dir(source):
+    #get the category of the source
+    category = source["category"]
+
+    #covert category name to folder frindly name
+    folder_name = category.lower().replace(" ", "_")
+
+    #create output folder path
+    output_path = Path("data/raw") / folder_name
+    return output_path
+
 #this function checks the robots.txt file for each source
 def check_robots(url):
     parsed_url = urlparse(url) #parse the url/separate it into its components
 
     #handle urls that are not https or dont belong to the registrar 
-    if parsed_url.scheme != "https" or parsed_url.hostname != "registrar.uwo.ca": 
-        print("Skipping URL outside the approved Registrar website.")
+    if parsed_url.scheme != "https" or not parsed_url.hostname: 
+        print("Skipping invalid or non-HTTPS URL.")
         return False
 
+    #only process the urls listed in the csv file
+    approved_urls = {
+        s["url"] for s in get_all_sources()
+    }
+
+    if url not in approved_urls:
+        print("Skipping URL not in sources.csv")
+        return False
+    
     #stores the robots.txt file for the website
-    robots_url = "https://registrar.uwo.ca/robots.txt"
+    robots_url = get_robots_url(url)
 
     try:
         #request the robots.txt from uwo server
@@ -65,8 +111,12 @@ def check_robots(url):
             redirect_url = urljoin(robots_url, redirect_location)
 
             #handle the verified missing file redirect
-            if(res.status_code == 302 and redirect_url == "https://registrar.uwo.ca/404.html"):
-                print("Registrar robots.txt redirects to its missing file page")
+            missing_robots_redirects = {
+                "https://registrar.uwo.ca/404.html",
+                "https://www.ssc.uwo.ca/404bssc.html"
+            }
+            if(res.status_code == 302 and redirect_url in missing_robots_redirects):
+                print("Registrar robots.txt redirects to known missing file page")
                 return True
             print(f"Unexpected robots.txt redirect: {redirect_url}")
             return False
@@ -165,11 +215,10 @@ def download_page(source):
             print(f"Skipping {source_id}: response not HTML.")
             return False
 
-        #create output folder and file
-        output_dir.mkdir(parents = True, exist_ok = True)
-        output_file = output_dir / f"{source_id}.html"
-
-        #save the original html
+        #determine output dir for download
+        source_output_dir = get_output_dir(source)
+        source_output_dir.mkdir(parents = True, exist_ok = True) #create dir if it doesnt exist
+        output_file = source_output_dir / f"{source_id}.html"
         output_file.write_bytes(res.content)
 
         #save source metadata
@@ -203,12 +252,13 @@ def save_scrape_metadata(source, output_file):
 
 # this is the MAIN scraper function
 def run_scraper(preview = True):
-    sources = get_registrar_source()
-    print(f"Found {len(sources)} registrar sources.")
+    sources = get_all_sources()
+    print(f"Found {len(sources)} sources.")
 
     #keep track of results
     successful = 0
     skipped = 0
+    already_saved = 0 #counter to prevent duplicate downloads
 
     #iterate through each record
     for s in sources:
@@ -219,6 +269,17 @@ def run_scraper(preview = True):
         if preview:
             print(f"Would process: {s['url']}")
             continue #since were jsut previewing we wont download the html yet, if in preview mode skip the rest and move to next record
+
+        #has the source already been downloaded?
+        source_output_dir = get_output_dir(s)
+        html_file = source_output_dir / f"{source_id}.html"
+        metadata_file = source_output_dir/ f"{source_id}.json"
+
+        #skip already downloaded sources
+        if html_file.exists() and metadata_file.exists():
+            print(f"Skipping {source_id}: file already exists.")
+            already_saved += 1
+            continue #move to next iteration (skip download)
 
         #try to download
         success = download_page(s)
@@ -235,9 +296,11 @@ def run_scraper(preview = True):
         print("no webpages downloaded")
     else:
         print(f"Successful downloads: {successful}")
+        print(f"Already saved: {already_saved}")
         print(f"Skipped: {skipped}")       
 
 
 #testing the preview mode of the scraper
 if __name__ == "__main__":
     run_scraper(preview = True)
+
