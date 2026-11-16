@@ -223,3 +223,6 @@ __marimo__/
 
 # Local ChromaDB database
 chroma_db/
+
+# Local chunk-size experiment databaseschroma_experiments/
+chroma_experiments/
