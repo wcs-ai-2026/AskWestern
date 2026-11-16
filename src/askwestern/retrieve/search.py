@@ -2,14 +2,29 @@
 from pathlib import Path
 
 import chromadb
+from sentence_transformers import SentenceTransformer
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-DB_PATH = BASE_DIR / "chroma_db"
-COLLECTION_NAME = "askwestern"
+DB_PATH = BASE_DIR / "chroma_experiments"
+
+COLLECTION_NAME = "askwestern_small"
+MODEL_NAME = "BAAI/bge-small-en-v1.5"
+
+_model = None
+
+
+def get_model():
+    """Load the embedding model only when needed."""
+    global _model
+
+    if _model is None:
+        _model = SentenceTransformer(MODEL_NAME)
+
+    return _model
 
 
 def search(question: str, k: int = 5) -> list[dict]:
-    """Return the top k relevant chunks from the local index."""
+    """Retrieve the top-k matching chunks from ChromaDB."""
 
     if not isinstance(question, str) or not question.strip():
         return []
@@ -19,14 +34,28 @@ def search(question: str, k: int = 5) -> list[dict]:
 
     try:
         client = chromadb.PersistentClient(path=str(DB_PATH))
-        collection = client.get_collection(name=COLLECTION_NAME)
+        collection = client.get_collection(
+            name=COLLECTION_NAME
+        )
 
         count = collection.count()
+
         if count == 0:
             return []
 
+        # Use the same embedding model as the index
+        query_text = (
+            "Represent this sentence for searching relevant passages: "
+            + question
+        )
+
+        query_embedding = get_model().encode(
+            query_text,
+            normalize_embeddings=True
+        ).tolist()
+
         results = collection.query(
-            query_texts=[question],
+            query_embeddings=[query_embedding],
             n_results=min(k, count),
             include=["documents", "metadatas", "distances"]
         )
@@ -39,17 +68,17 @@ def search(question: str, k: int = 5) -> list[dict]:
             results["metadatas"][0],
             results["distances"][0]
         ):
-            # Provisional similarity score for the original L2 index
-            score = max(0.0, min(1.0, 1.0 - distance / 2.0))
+            # Cosine similarity = 1 - cosine distance
+            score = max(0.0, min(1.0, 1.0 - distance))
 
             chunks.append({
                 "chunk_id": chunk_id,
                 "text": document,
-                "source_url": metadata.get("url", ""),
-                "title": metadata.get("notes", ""),
-                "section": "",
-                "collected_on": "",
-                "source_type": "html",
+                "source_url": metadata.get("source_url", ""),
+                "title": metadata.get("title", ""),
+                "section": metadata.get("section", ""),
+                "collected_on": metadata.get("collected_on", ""),
+                "source_type": metadata.get("source_type", "html"),
                 "score": float(score)
             })
 
@@ -61,9 +90,13 @@ def search(question: str, k: int = 5) -> list[dict]:
 
 
 if __name__ == "__main__":
-    results = search("When do fall classes start at Western?")
+    question = "When do fall classes start at Western?"
 
-    print(f"Found {len(results)} results")
+    results = search(question)
+
+    print(f"Found {len(results)} results\n")
 
     for result in results:
-        print(result["source_url"], result["score"])
+        print(f"Source: {result['source_url']}")
+        print(f"Score: {result['score']:.3f}")
+        print(f"Text: {result['text'][:200]}\n")
