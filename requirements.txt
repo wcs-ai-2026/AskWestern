@@ -25,4 +25,3 @@ pytest>=8.0.0
 #
 # PyMuPDF — for Ghanwa's PDF parser. build_index.py currently skips anything
 # that isn't text/html, so nothing needs it yet.
-

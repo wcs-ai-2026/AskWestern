@@ -6,7 +6,6 @@ import pymupdf #python library for parsing pdfs
 def extract_pdf_text(pdf_path):
     """
     This function extracts readable text from a PDF.
-    
     It returns a plain string, matching the output type of the existing
     HTML extract_text() function.
     """
