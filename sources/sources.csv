@@ -30,15 +30,15 @@ FAC008,Faculty,checked,yes,Law,https://law.uwo.ca/
 FAC009,Faculty,checked,yes,Medical Sciences,https://www.schulich.uwo.ca/find-your-program/undergraduate/bmsc.html
 FAC010,Faculty,checked,yes,Sciences,https://www.uwo.ca/sci/
 FAC011,Faculty,checked,yes,Social Science,https://www.ssc.uwo.ca/
-ADV001,Academic Advising,checked,yes,Arts and Humanities Advising,https://www.uwo.ca/arts/counselling/
+ADV001,Academic Advising,checked,yes,Arts and Humanities Advising,https://www.uwo.ca/arts/advising/
 ADV002,Academic Advising,checked,yes,Engineering Advising,https://www.eng.uwo.ca/undergraduate/
 ADV003,Academic Advising,checked,yes,Music Advising,https://music.uwo.ca/current-students/undergraduate/student-services.html
 ADV004,Academic Advising,checked,yes,Sciences Advising,https://www.uwo.ca/sci/advising/
-ADV005,Academic Advising,checked,yes,Social Sciences Advising,http://counselling.ssc.uwo.ca/
+ADV005,Academic Advising,checked,yes,Social Sciences Advising,https://www.advising.ssc.uwo.ca/
 ADV006,Academic Advising,checked,yes,Kinesiology Advising,https://www.uwo.ca/fhs/kin/undergrad/academic/index.html
 ADV007,Academic Advising,checked,yes,Nursing Advising,https://www.uwo.ca/fhs/nursing/undergrad/academic/index.html
 ADV008,Academic Advising,checked,yes,Health Sciences Advising,https://www.uwo.ca/fhs/shs/academic_counselling/index.html
-ADV009,Academic Advising,checked,yes,Dentistry Advising,https://www.schulich.uwo.ca/dentistry/current_students/student_services.html
+ADV009,Academic Advising,checked,yes,Dentistry Advising,https://www.schulich.uwo.ca/dentistry/current-students/index.html
 ADV010,Academic Advising,checked,yes,Ivey Business School Advising,https://www.ivey.uwo.ca/hba/
 ADV011,Academic Advising,checked,not_checked,Law Advising,https://law.uwo.ca/current_students/student_services/index.html
 ADV012,Academic Advising,checked,yes,Medical Sciences Advising,https://www.schulich.uwo.ca/bmsc/academic-resources/advising/index.html
