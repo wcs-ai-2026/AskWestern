@@ -54,7 +54,7 @@ class TestRegistrarScraper(unittest.TestCase):
 
         #use temp dict for output
         with TemporaryDirectory() as temp_dir:
-            with patch.object(scrape, "output_dir", Path(temp_dir)):
+            with patch.object(scrape, "get_output_dir", return_value = Path(temp_dir)):
                 #run the douwload
                 result = scrape.download_page(source)
 
@@ -155,7 +155,7 @@ class TestRegistrarScraper(unittest.TestCase):
 
         #use temp dict 
         with TemporaryDirectory() as temp_dir:
-            with patch.object(scrape, "output_dir", Path(temp_dir)):
+            with patch.object(scrape, "get_output_dir", return_value = Path(temp_dir)):
                 result = scrape.download_page(source)
                 self.assertFalse(result)
                 html_file = Path(temp_dir) / "REG001.html"
@@ -168,8 +168,18 @@ class TestRegistrarScraper(unittest.TestCase):
         mock_get.assert_called_once()        
 
     #testing the download of pages with missing robots.txt files
+    @patch("src.askwestern.ingest.scrape.get_all_sources")
     @patch("src.askwestern.ingest.scrape.requests.get")
-    def test_missing_robots(self, mock_get):
+    def test_missing_robots(self, mock_get, mock_sources):
+        #create sample registrar url
+        url = "https://registrar.uwo.ca/example.html"
+
+        #simulate the sample url as a valid sources.csv entry
+        mock_sources.return_value = [{
+            "source_id": "REG001",
+            "url": url
+        }]
+
         #simulate page without robots.txt
         fake_response = Mock()
         fake_response.status_code = 302
@@ -185,5 +195,82 @@ class TestRegistrarScraper(unittest.TestCase):
         allowed = scrape.check_robots(url)
         self.assertTrue(allowed)
         mock_get.assert_called_once()
-        
+        mock_sources.assert_called_once()
+
+    #testing that the scraper works properly when encountering unapproved urls
+    @patch("src.askwestern.ingest.scrape.get_all_sources")
+    @patch("src.askwestern.ingest.scrape.requests.get")
+    def test_unlisted_url(self, mock_get, mock_sources):
+        #simulate the approved list of sources
+        mock_sources.return_value = [{
+            "source_id": "REG001",
+            "url": "https://registrar.uwo.ca/approved.html"
+        }]
+
+        #this is a a smaple url that isnt in the approved sources
+        url = "https://registrar.uwo.ca/unlisted.html"
+
+        allowed = scrape.check_robots(url)
+        self.assertFalse(allowed)
+        mock_get.assert_not_called()
+
+    #testing that the scraper check robots for diff domains
+    @patch("src.askwestern.ingest.scrape.get_all_sources")
+    @patch("src.askwestern.ingest.scrape.requests.get")
+    def test_domain_robots(self, mock_get, mock_sources):
+        #simulate 2 approved sources
+        sources = [
+            {
+                "source_id": "FAC001",
+                "url": "https://www.eng.uwo.ca/undergraduate/index.html"
+            },
+            {
+                "source_id": "HOU001",
+                "url": "https://residence.uwo.ca/"
+            }
+        ]
+
+        mock_sources.return_value = sources
+
+        #simulate robots that allow access
+        fake_response = Mock()
+        fake_response.status_code = 200
+        fake_response.text = "User-agent: *\nAllow: /"
+        mock_get.return_value = fake_response
+
+        #check each source
+        for s in sources:
+            with self.subTest(url = s["url"]):
+                mock_get.reset_mock()
+                allowed = scrape.check_robots(s["url"])
+                self.assertTrue(allowed)
+                expected_robots_url = scrape.get_robots_url(s["url"])
+                mock_get.assert_called_once_with(
+                    expected_robots_url,
+                    headers = {"User-Agent": scrape.user_agent},
+                    timeout = 15,
+                    allow_redirects = False
+                )
+
+    #testing the ssc robots redirect
+    @patch("src.askwestern.ingest.scrape.get_all_sources")
+    @patch("src.askwestern.ingest.scrape.requests.get")
+    def test_ssc_robots_redirect(self, mock_get, mock_sources):
+        url = "https://www.ssc.uwo.ca/"
+
+        mock_sources.return_value = [{
+            "source_id": "FAC011",
+            "url": url
+        }]
+
+        fake_response = Mock()
+        fake_response.status_code = 302
+        fake_response.headers = {
+            "Location": "https://www.ssc.uwo.ca/404bssc.html"
+        }
+
+        mock_get.return_value = fake_response
+        allowed = scrape.check_robots(url)
+        self.assertTrue(allowed)
+        mock_get.assert_called_once()
 
