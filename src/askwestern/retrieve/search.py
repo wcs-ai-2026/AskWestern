@@ -5,9 +5,11 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-DB_PATH = BASE_DIR / "chroma_experiments"
+# Built by build_index.py, the one indexer. compare_chunk_sizes.py writes its
+# own chroma_experiments/ database, which nothing reads.
+DB_PATH = BASE_DIR / "chroma_db"
 
-COLLECTION_NAME = "askwestern_small"
+COLLECTION_NAME = "askwestern"
 MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 _model = None

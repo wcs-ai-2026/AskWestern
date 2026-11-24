@@ -1,104 +1,71 @@
+"""Build the ChromaDB index that search() reads.
 
-import csv
+This is the only indexer. It reads the scraped pages in data/raw/ together with
+the .json metadata saved beside each one, so every chunk carries the fields the
+chunk-record contract requires — including collected_on, which is why it reads
+data/raw/ rather than data/seed/ (the seed copies have no metadata).
+
+Chunk size and overlap are the configuration SCRUM-35 measured as best
+(500/100, 91.3% hit rate at 5 — see RETRIEVAL_RESULTS.md). compare_chunk_sizes.py
+is the experiment that established that; it writes its own throwaway database
+and nothing reads its output.
+
+    python build_index.py
+"""
+
+import json
 import re
-import time
 from pathlib import Path
-from urllib.parse import urlparse
-from urllib.robotparser import RobotFileParser
 
-import requests
-from bs4 import BeautifulSoup
 import chromadb
+from bs4 import BeautifulSoup
+from sentence_transformers import SentenceTransformer
 
-# Paths
 BASE_DIR = Path(__file__).resolve().parent
-CSV_PATH = BASE_DIR / "sources" / "sources.csv"
+RAW_DIR = BASE_DIR / "data" / "raw"
 DB_PATH = BASE_DIR / "chroma_db"
 
-USER_AGENT = "AskWesternBot/0.1"
-CHUNK_SIZE = 1000
-CHUNK_OVERLAP = 200
+COLLECTION_NAME = "askwestern"
+MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
-# Read the seed set
-with open(CSV_PATH, encoding="utf-8-sig", newline="") as file:
-    sources = list(csv.DictReader(file))
+CHUNK_SIZE = 500
+CHUNK_OVERLAP = 100
 
-print(f"Found {len(sources)} sources")
+BATCH = 32
 
-# Initialize ChromaDB
-client = chromadb.PersistentClient(path=str(DB_PATH))
-collection = client.get_or_create_collection(name="askwestern")
-
-session = requests.Session()
-session.headers.update({"User-Agent": USER_AGENT})
-
-robots_cache = {}
+# Every chunk record must carry these (CONTRACTS.md, contract 1).
+REQUIRED_META = ("source_url", "title", "collected_on", "source_type")
 
 
-def crawling_allowed(url):
-    """Check the website's current robots.txt rules."""
-    parsed = urlparse(url)
-    origin = f"{parsed.scheme}://{parsed.netloc}"
+def extract_text(path):
+    """Read and clean a saved HTML page. Same logic as compare_chunk_sizes.py."""
+    html = path.read_text(encoding="utf-8", errors="replace")
+    soup = BeautifulSoup(html, "html.parser")
 
-    if origin not in robots_cache:
-        robots = RobotFileParser()
-        robots.set_url(origin + "/robots.txt")
-
-        try:
-            response = session.get(
-                origin + "/robots.txt",
-                timeout=15
-            )
-            response.raise_for_status()
-            robots.parse(response.text.splitlines())
-            robots_cache[origin] = robots
-        except requests.RequestException:
-            print(f"Could not verify robots.txt for {origin}")
-            return False
-
-    return robots_cache[origin].can_fetch(USER_AGENT, url)
-
-
-def fetch_text(url):
-    """Download and extract webpage text."""
-    response = session.get(url, timeout=20)
-    response.raise_for_status()
-
-    content_type = response.headers.get("Content-Type", "")
-
-    if "text/html" not in content_type.lower():
-        raise ValueError(f"Unsupported content type: {content_type}")
-
-    soup = BeautifulSoup(response.text, "html.parser")
+    html_title = (
+        soup.title.get_text(" ", strip=True) if soup.title else path.stem
+    )
 
     for element in soup([
-        "script", "style", "nav", "footer",
-        "header", "noscript"
+        "script", "style", "nav", "footer", "header", "noscript"
     ]):
         element.decompose()
 
-    main = soup.find("main")
-    content = main if main else soup.body
+    content = soup.find("main") or soup.body or soup
 
-    if content is None:
-        return ""
+    text = content.get_text(" ", strip=True)
+    text = re.sub(r"\s+", " ", text).strip()
 
-    text = content.get_text(separator=" ", strip=True)
-
-    # Remove extra whitespace
-    return re.sub(r"\s+", " ", text).strip()
+    return html_title, text
 
 
-def chunk_text(text, chunk_size=1000, overlap=200):
-    """Split text into overlapping chunks at word boundaries."""
-    if not 0 <= overlap < chunk_size:
-        raise ValueError("Overlap must be smaller than chunk size")
-
+def chunk_text(text, size, overlap):
+    """Split text at word boundaries with overlap."""
     chunks = []
     start = 0
 
     while start < len(text):
-        end = min(start + chunk_size, len(text))
+        end = min(start + size, len(text))
 
         if end < len(text):
             boundary = text.rfind(" ", start, end)
@@ -110,134 +77,117 @@ def chunk_text(text, chunk_size=1000, overlap=200):
         if chunk:
             chunks.append(chunk)
 
-        if end >= len(text):
+        if end == len(text):
             break
 
         start = max(start + 1, end - overlap)
 
-        # Avoid beginning in the middle of a word
-        while start < len(text) and not text[start - 1].isspace():
+        while start < len(text) and start > 0 and not text[start - 1].isspace():
             start += 1
 
     return chunks
 
 
-# Process all approved sources
-successful = 0
-failed = 0
-skipped = 0
+def load_pages():
+    """Every data/raw page that has usable text and complete metadata."""
+    pages = []
+    skipped = []
 
-for source in sources:
-    source_id = source["source_id"]
-    url = source["url"]
+    for path in sorted(RAW_DIR.rglob("*.html")):
+        meta_path = path.with_suffix(".json")
 
-    print(f"\nProcessing {source_id}: {url}")
+        if not meta_path.exists():
+            skipped.append((path.stem, "no .json metadata beside it"))
+            continue
 
-    if source["robots_allowed"].strip().lower() not in (
-        "yes",
-        "public page not blocked by robots.txt"
-    ):
-        print("Skipping: crawling permission not confirmed")
-        skipped += 1
-        continue
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
 
-    if not crawling_allowed(url):
-        print("Skipping: robots.txt permission not confirmed")
-        skipped += 1
-        continue
+        missing = [f for f in REQUIRED_META if not meta.get(f)]
+        if missing:
+            skipped.append((path.stem, f"metadata missing {', '.join(missing)}"))
+            continue
 
-    try:
-        text = fetch_text(url)
-
+        html_title, text = extract_text(path)
         if not text:
-            raise ValueError("No text extracted")
+            skipped.append((path.stem, "no text extracted"))
+            continue
 
-        chunks = chunk_text(
-            text,
-            chunk_size=CHUNK_SIZE,
-            overlap=CHUNK_OVERLAP
-        )
+        pages.append({
+            "source_id": meta.get("source_id") or path.stem,
+            "source_url": meta["source_url"],
+            # Ghanwa's curated title, falling back to the page's <title>.
+            "title": meta["title"] or html_title,
+            "collected_on": meta["collected_on"],
+            "source_type": meta["source_type"],
+            "text": text,
+        })
 
-        if not chunks:
-            raise ValueError("No chunks created")
-
-        print(f"Created {len(chunks)} chunks")
-        
-        existing = collection.get(
-            where={"source_id": source_id}
-        )
-
-        new_ids = [
-            f"{source_id}_chunk_{i}"
-            for i in range(len(chunks))
-        ]
-
-        # Add chunks in batches
-        for start in range(0, len(chunks), 32):
-            batch = chunks[start:start + 32]
-
-            collection.upsert(
-                ids=[
-                    f"{source_id}_chunk_{i}"
-                    for i in range(start, start + len(batch))
-                ],
-                documents=batch,
-                metadatas=[
-                    {
-                        "source_id": source_id,
-                        "category": source["category"],
-                        "url": url,
-                        "notes": source["notes"],
-                        "chunk_index": i
-                    }
-                    for i in range(start, start + len(batch))
-                ]
-            )
-
-        
-        # Remove outdated chunks after successful indexing
-        new_id_set = set(new_ids)
-
-        outdated_ids = [
-            old_id
-            for old_id in existing["ids"]
-            if old_id not in new_id_set
-        ]
-
-        if outdated_ids:
-            collection.delete(ids=outdated_ids)
-
-        successful += 1
-        print(f"Indexed {source_id} successfully")
-
-    except Exception as error:
-        failed += 1
-        print(f"Failed: {error}")
-
-    # Avoid sending requests too quickly
-    time.sleep(1)
+    return pages, skipped
 
 
+def main():
+    if not RAW_DIR.exists():
+        raise SystemExit(f"No scraped pages at {RAW_DIR}")
 
-print("\n========== INDEXING SUMMARY ==========")
-print(f"Successfully indexed: {successful}")
-print(f"Failed: {failed}")
-print(f"Skipped: {skipped}")
-print(f"Total chunks in database: {collection.count()}")
+    pages, skipped = load_pages()
 
-# Test semantic search
-if collection.count() > 0:
-    results = collection.query(
-        query_texts=["How do I register for courses at Western?"],
-        n_results=3
+    print(f"Loaded {len(pages)} pages from {RAW_DIR.relative_to(BASE_DIR)}")
+    for source_id, why in skipped:
+        print(f"  skipped {source_id}: {why}")
+
+    if not pages:
+        raise SystemExit("No usable pages - nothing to index")
+
+    print(f"Loading embedding model {MODEL_NAME}...")
+    model = SentenceTransformer(MODEL_NAME)
+
+    client = chromadb.PersistentClient(path=str(DB_PATH))
+
+    # Rebuild from scratch so a removed page cannot linger in the index.
+    if COLLECTION_NAME in [c.name for c in client.list_collections()]:
+        client.delete_collection(COLLECTION_NAME)
+
+    collection = client.create_collection(
+        name=COLLECTION_NAME,
+        configuration={"hnsw": {"space": "cosine"}},
     )
 
-    print("\n========== SEARCH RESULTS ==========")
+    ids, documents, metadatas = [], [], []
 
-    for document, metadata in zip(
-        results["documents"][0],
-        results["metadatas"][0]
-    ):
-        print(f"\nSource: {metadata['source_id']}")
-        print(f"URL: {metadata['url']}")
-        print(f"Text: {document[:400]}")
+    for page in pages:
+        chunks = chunk_text(page["text"], CHUNK_SIZE, CHUNK_OVERLAP)
+
+        for i, chunk in enumerate(chunks):
+            ids.append(f"{page['source_id']}_{i}")
+            documents.append(chunk)
+            metadatas.append({
+                "source_id": page["source_id"],
+                "source_url": page["source_url"],
+                "title": page["title"],
+                "collected_on": page["collected_on"],
+                "source_type": page["source_type"],
+                "section": "",
+                "chunk_index": i,
+            })
+
+    print(f"Created {len(documents)} chunks at {CHUNK_SIZE}/{CHUNK_OVERLAP}")
+
+    for start in range(0, len(documents), BATCH):
+        batch = documents[start:start + BATCH]
+
+        embeddings = model.encode(
+            batch, normalize_embeddings=True, show_progress_bar=False
+        ).tolist()
+
+        collection.add(
+            ids=ids[start:start + BATCH],
+            documents=batch,
+            metadatas=metadatas[start:start + BATCH],
+            embeddings=embeddings,
+        )
+
+    print(f"Stored {collection.count()} chunks in {DB_PATH.name}/{COLLECTION_NAME}")
+
+
+if __name__ == "__main__":
+    main()

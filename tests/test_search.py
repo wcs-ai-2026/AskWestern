@@ -49,10 +49,25 @@ def test_result_fields():
         "score",
     }
 
+    # The six fields the chunk-record contract requires must also be
+    # populated. Asserting only that the keys exist let collected_on sit
+    # empty until build_index.py started reading the scraper's metadata.
+    must_be_filled = {
+        "chunk_id",
+        "text",
+        "source_url",
+        "title",
+        "collected_on",
+        "source_type",
+    }
+
     for result in results:
         assert required_fields.issubset(result.keys())
         assert isinstance(result["score"], float)
         assert 0.0 <= result["score"] <= 1.0
+
+        for field in must_be_filled:
+            assert result[field], f"{field} is empty in {result['chunk_id']}"
 
 
 def test_relevant_source():
