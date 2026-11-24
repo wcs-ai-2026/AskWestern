@@ -1,12 +1,20 @@
 # AskWestern runtime dependencies. Python 3.11 — see README.md.
 #
-# The week-1 stubs (src/askwestern/stubs.py) import only the standard library,
-# so they run whether or not this file is installed.
+# The stubs (src/askwestern/stubs.py) import only the standard library, so they
+# run whether or not this file is installed. Everything else needs it.
 
-# Ingestion and the Chroma index — imported by build_index.py.
+# Retrieval. sentence-transformers is required: search.py imports it directly
+# to run the BAAI/bge-small-en-v1.5 embedder the index was built with.
 chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# Ingestion — imported by build_index.py and the scrapers.
 requests>=2.32.0
 beautifulsoup4>=4.12.0
+
+# The LLM. Provider and model are recorded in DECISIONS.md
+# (Anthropic Claude API, claude-sonnet-5-5).
+anthropic>=2.9.0
 
 # App, config and tests.
 python-dotenv>=1.0.0
@@ -15,12 +23,5 @@ pytest>=8.0.0
 
 # Not here on purpose:
 #
-# sentence-transformers — build_index.py uses ChromaDB's own bundled default
-# embedder (all-MiniLM-L6-v2), so there is nothing extra to install. Add it
-# only if Tanya moves off the default while tuning hit rate.
-#
-# The LLM SDK — Matteo picks the model in week 1. The plan's fallback with no
-# budget is a local model through Ollama.
-#
-# pypdf — for Ghanwa's PDF parser. build_index.py currently skips anything
-# that isn't text/html, so nothing needs it yet.
+# pypdf — for Ghanwa's PDF parser. The indexers currently skip anything that
+# isn't HTML, so nothing needs it yet.
