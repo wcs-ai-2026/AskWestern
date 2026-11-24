@@ -226,3 +226,6 @@ chroma_db/
 
 # Local chunk-size experiment databaseschroma_experiments/
 chroma_experiments/
+
+# Claude Code
+.claude/

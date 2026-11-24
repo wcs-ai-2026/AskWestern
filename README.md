@@ -91,6 +91,21 @@ Check it worked:
 PYTHONPATH=src python -c "from askwestern.retrieve.search import search; r = search('when is the drop deadline'); print(len(r), 'chunks'); print(r[0]['source_url'] if r else 'EMPTY - index not built')"
 ```
 
+## Run the chat page
+
+```bash
+./.venv/bin/python -m streamlit run app.py
+```
+
+Opens at http://localhost:8501. Type a question and you get an answer with a
+clickable link to the Western page it used, or - for anything outside the 47
+indexed pages - a refusal and the office to contact instead. The "Details"
+panel under each reply shows which chunks were retrieved and how long the call
+took.
+
+Needs the index built and `ANTHROPIC_API_KEY` in `.env`; the page tells you
+which is missing rather than failing silently.
+
 ## Run it
 
 ```bash
