@@ -1,14 +1,14 @@
-
 import csv
-import re
 import time
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.robotparser import RobotFileParser
 
 import requests
-from bs4 import BeautifulSoup
 import chromadb
+
+from src.askwestern.ingest.clean import clean_html, deduplicate_chunks 
+
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent
@@ -69,24 +69,27 @@ def fetch_text(url):
     if "text/html" not in content_type.lower():
         raise ValueError(f"Unsupported content type: {content_type}")
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    #cleans the html and return readable text
+    return clean_html(response.text) 
 
-    for element in soup([
-        "script", "style", "nav", "footer",
-        "header", "noscript"
-    ]):
-        element.decompose()
+    """
+        for element in soup([
+            "script", "style", "nav", "footer",
+            "header", "noscript"
+        ]):
+            element.decompose()
 
-    main = soup.find("main")
-    content = main if main else soup.body
+        main = soup.find("main")
+        content = main if main else soup.body
 
-    if content is None:
-        return ""
+        if content is None:
+            return ""
 
-    text = content.get_text(separator=" ", strip=True)
+        text = content.get_text(separator=" ", strip=True)
 
-    # Remove extra whitespace
-    return re.sub(r"\s+", " ", text).strip()
+        # Remove extra whitespace
+        return re.sub(r"\s+", " ", text).strip()
+    """
 
 
 def chunk_text(text, chunk_size=1000, overlap=200):
@@ -157,6 +160,8 @@ for source in sources:
             chunk_size=CHUNK_SIZE,
             overlap=CHUNK_OVERLAP
         )
+
+        chunks = deduplicate_chunks(chunks)
 
         if not chunks:
             raise ValueError("No chunks created")

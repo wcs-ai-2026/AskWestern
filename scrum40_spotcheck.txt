@@ -1,0 +1,110 @@
+html files processed: 47
+Chunks before deduplication: 838
+Chunks after deduplication: 838
+Duplicates removed: 0
+
+========== 10 CHUNK SPOT CHECK ==========
+
+========== 10-SOURCE SPOT-CHECK ==========
+
+--- CHUNK 1 ---
+Source: ACD001.html
+Characters: 999
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Sessional Dates Sessional Dates Deadlines occurring on a Saturday, Sunday, or statutory holiday are normally extended to the next business day. These dates are annotated with an asterisk *. Undergraduate sessional dates are compiled in accordance with academic policies and associated procedures. Visit Welcome to Western to view upcoming admission application deadlines. Date(s) Description Category Type 2026-01-05 January 05, 2026 Classes Resume - All Years. Fall/Winter Term Date including Study Breaks Schulich School of Medicine & Dentistry - Dentistry 2026-01-05 January 05, 2026 Classes Resume for Years 1, 2. Fall/Winter Term Date including Study Breaks Schulich School of Medicine & Dentistry - Medicine 2026-01-05 January 05, 2026 Classes resume for Year 4. Fall/Winter Term Date including Study Breaks Schulich School of Medicine & Dentistry - Medicine 2026-01-05 January 05, 2026 Bachelor of Education (Admitted Fall
+
+--- CHUNK 2 ---
+Source: ACD002.html
+Characters: 993
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Degree Requirements and Graduation ADMISSION - BACHELOR OF MEDICAL SCIENCES Admission to the Bachelor of Medical Sciences (BMSc) Program Modules Offered in the BMSc Program APPLICATION FOR GRADUATION AND NOTIFICATION OF ELIGIBILITY TO GRADUATE CERTIFICATES, DIPLOMAS AND MICRO-CREDENTIALS CONVOCATION; GRADUATION DIPLOMAS AND CERTIFICATES Convocation Ceremonies Graduation Diplomas and Certificates DEAN'S HONOUR LIST AND GRADUATION I. DEAN'S HONOUR LIST - UNDERGRADUATE STUDENTS II. GRADUATION III. HONOURS DESIGNATIONS IN THE IVEY GRADUATE PROGRAMS DENTISTRY - PROGRAM REQUIREMENTS AND PROGRESSION GOLD MEDALS GRADUATION REQUIREMENTS - UNDERGRADUATE DEGREES 1.0 GRADUATION REQUIREMENTS FOR HONOURS BACHELOR DEGREES 2.0 GRADUATION REQUIREMENTS FOR BACHELOR DEGREES (FOUR-YEAR) 3.0 GRADUATION REQUIREMENTS FOR BACHELOR DEGREES (THREE-YEAR) INFORMATION AND MEDIA STUDIES - PROGRESSION REQUIREMENTS PROGRESSION AND GRADUATION
+
+--- CHUNK 3 ---
+Source: ACD003.html
+Characters: 996
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Academic Rights and Responsibilities ACADEMIC ACCOMMODATION FOR STUDENTS WITH DISABILITIES Policy Statement Purpose of Academic Accommodation Procedures Definitions Responsibilities Establishing Reasonable Academic Accommodations Implementation of an Accommodation within a Classroom or Similar Context Appeal Procedures Appeal of a Decision Establishing Academic Accommodations Appeal of a Dispute regarding the Implementation of an Accommodation ACADEMIC ACCOMMODATION OF STUDENTS IN THE RESERVE FORCES ACADEMIC CONSIDERATION - UNDERGRADUATE STUDENTS IN FIRST ENTRY PROGRAMS I. Purpose II. Statement of Principles III. Policy IV. Appeals Procedure for Academic Consideration – Undergraduate Students in First Entry Programs ACADEMIC SANCTIONS ACCOMMODATION FOR RELIGIOUS HOLIDAYS ACCOMODATION FOR POLITICAL CANDIDACY OF STUDENTS INSTRUCTOR-STUDENT CONFLICT OF INTEREST OFFICIAL STUDENT RECORD INFORMATION PRIVACY Definitions
+
+--- CHUNK 4 ---
+Source: ACD004.html
+Characters: 998
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Courses by Subject Enrolment in each course is limited and in some cases the demand exceeds that limit. The University is unable to guarantee registration in any particular course and reserves the right to withdraw course offerings. Courses are assigned to three Categories and students must take 1.0 course from each Category before graduation. For more information, see Breadth Requirements for Bachelor Degrees Some courses do not provide prerequisites for senior courses. Some senior courses are restricted to honours students. Some of the courses described in this section may not be offered in the coming year. Subject Breadth Category Campuses Actuarial Science CATEGORY C American Sign Language CATEGORY B American Studies CATEGORY A Analytics and Decision Sciences CATEGORY A Anatomy and Cell Biology CATEGORY C Animal Ethics and Sustainability Leadership CATEGORY A Anthropology CATEGORY A Applied Mathematics CATEGORY
+
+--- CHUNK 5 ---
+Source: ACD005.html
+Characters: 994
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Registration ACADEMIC ADVISING FOR UNDERGRADUATE STUDENTS ADDING/DROPPING COURSES COURSE LOAD FOR UNDERGRADUATE STUDENTS Normal Course Load Spring/Summer Sessions, including Distance Education COURSE NUMBERING, ESSAY COURSES, AND HOURS OF INSTRUCTION Course Numbering Policy For Undergraduate Courses Undergraduate Course Suffixes Undergraduate Course Offerings Modes of Course Delivery Essay Courses (Undergraduate Degrees) Hours of Instruction For Undergraduate Courses First Year Courses/Classes Graduate Course Offerings CRIMINAL RECORDS CHECK AND VULNERABLE SECTOR SCREENING Faculty of Health Sciences King's University College Schulich School of Medicine & Dentistry EXCHANGE COURSES EXPERIENTIAL LEARNING LETTER OF PERMISSION MANDATORY TRAINING FOR UNDERGRADUATE STUDENTS I. Preamble II. Western Academic Integrity Tutorial for Undergraduate Students (Academic Integrity Tutorial) III. Western Gender-Based and Sexual
+
+--- CHUNK 6 ---
+Source: ACD006.html
+Characters: 992
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Examinations and Grading ACCESS TO AND RETENTION OF EXAMINATION PAPERS AND OTHER WORK COURSE CREDIT - UNDERGRADUATE Discovery Credits Additional Courses without Degree Credit Policy on Undergraduate Students Taking Graduate Courses ENGLISH LANGUAGE PROFICIENCY FOR ASSIGNMENT OF GRADES EVALUATION OF ACADEMIC PERFORMANCE Evaluation of Academic Performance First Year Courses - Teaching and Evaluation EXAMINATION CONFLICTS EXAMINATIONS - ADMINISTRATION Instruction For Candidates During Examinations Allocation of Proctors Duties of Chief Proctors During Examinations Division of Responsibilities Submitting Examinations to Examination Services for Accommodated Examinations EXAMINATIONS - ATTENDANCE REGULATIONS Attendance Failure to Appear at an Examination EXAMINATIONS - POSTING OF PRELIMINARY AND FINAL EXAMINATION TIMETABLES Preliminary Examination Timetable Final Examination Timetable EXAMINATIONS - SCHEDULING AND
+
+--- CHUNK 7 ---
+Source: ADV001.html
+Characters: 997
+Text: Academic Advising - Faculty of Arts & Humanities Arts & Humanities Academic Advising We're here to help you with your academic goals. Connect with our Academic Advisors if you need support with navigating Western's policies and procedures, registering for courses or changing your modules, special permission and more. Drop in to our office in University College or connect via the Support Portal. Welcome to Academic Advising! Faculty of Arts and Humanities Support Portal Your Degree Procedures Support Portal Opening Hours The Academic Advising Office will be closed on Wednesday, December 23rd, and will reopen on the morning of Monday, January 4, 2027. Please submit a ticket through our Support Portal. Submit a ticket through our Support Portal Visit our office in University College Room 2230 during the following hours. No appointment required. Weekday Morning hours Afternoon hours Monday & Wednesday 9:30 AM to NOON 1:00 PM to 4:00 PM Tuesday & Thursday CLOSED 1:00 PM to 4:00 PM Friday
+
+--- CHUNK 8 ---
+Source: ADV002.html
+Characters: 995
+Text: Undergraduate Services Welcome to the Undergraduate Services Office! Our team of experienced Academic Advisors, front-line office staff and Manager are always available to provide support and help in all academic matters. We are pleased to answer your questions related to the Western Experience; everything from student life and academic advising, to any other services available on campus. If you are a prospective student, please email futurewe@uwo.ca for assistance. Academic Advising & Absence Reporting Book an Advising Appointment Academic Consideration for Absences Student Medical Certificate Meet the Undergraduate Services Team Academic Support & Student Accommodation Student Accessibility Academic Support Tutor Information Online Forms International Career Services & Experiential Learning Career Services Experiential Learning Student Clubs Women in Engineering Leadership and Innovation 1st Year Students FAQs Flexible Programming Academic & Campus Supports First Year Guide-book
+
+--- CHUNK 9 ---
+Source: ADV003.html
+Characters: 994
+Text: Student Services and Academic Advising Student Services and Academic Advising Student Services and Academic Advising The Don Wright Faculty of Music Student Services area (Talbot College Room 210) offers academic advising, services and support to all undergraduate Music students. This office is responsible for the following: Confidential discussion regarding personal, medical or religious issues that affect performance and what accommodation is available Advice about eligibility for the various degrees and modules offered Assistance in interpreting academic policies and procedures Processing of recommendations from departments such as special permissions Assistance with registration procedures Scholarship inquiries Assistance and processing of forms including those required for withdrawal from the Faculty or University Letter of Permission inquiries Advisors To ensure that students receive the most accurate, current academic program information and advice, the appropriate advisor
+
+--- CHUNK 10 ---
+Source: ADV004.html
+Characters: 767
+Text: Science & Basic Medical Sciences Academic Advising Notices IMPORTANT DATES : Course Registration dates September 8 : Deadline for applications: Autumn Convocation September 9 : Classes Begin September 17 : Last day to add a Fall/Winter 24-week course or a Fall 12-week course September 30 : National Day for Truth and Reconciliation (observed at Western). No classes. October 10-18 : Fall Reading Week November 30 : Last day to withdraw from a Fall 12-week course without academic penalty December 9 : Last day of classes December 10 : Study day December 11-22 : December exam period *More Important Dates can be found in the Western Academic Calendar here . Current Topics First-year course registration guide First-year student registration tips Department advisors
+
+========== 10-SOURCE SPOT-CHECK ==========
+
+--- CHUNK 1 ---
+Source: ACD001.html
+Characters: 999
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Sessional Dates Sessional Dates Deadlines occurring on a Saturday, Sunday, or statutory holiday are normally extended to the next business day. These dates are annotated with an asterisk *. Undergraduate sessional dates are compiled in accordance with academic policies and associated procedures. Visit Welcome to Western to view upcoming admission application deadlines. Date(s) Description Category Type 2026-01-05 January 05, 2026 Classes Resume - All Years. Fall/Winter Term Date including Study Breaks Schulich School of Medicine & Dentistry - Dentistry 2026-01-05 January 05, 2026 Classes Resume for Years 1, 2. Fall/Winter Term Date including Study Breaks Schulich School of Medicine & Dentistry - Medicine 2026-01-05 January 05, 2026 Classes resume for Year 4. Fall/Winter Term Date including Study Breaks Schulich School of Medicine & Dentistry - Medicine 2026-01-05 January 05, 2026 Bachelor of Education (Admitted Fall
+
+--- CHUNK 2 ---
+Source: ACD002.html
+Characters: 993
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Degree Requirements and Graduation ADMISSION - BACHELOR OF MEDICAL SCIENCES Admission to the Bachelor of Medical Sciences (BMSc) Program Modules Offered in the BMSc Program APPLICATION FOR GRADUATION AND NOTIFICATION OF ELIGIBILITY TO GRADUATE CERTIFICATES, DIPLOMAS AND MICRO-CREDENTIALS CONVOCATION; GRADUATION DIPLOMAS AND CERTIFICATES Convocation Ceremonies Graduation Diplomas and Certificates DEAN'S HONOUR LIST AND GRADUATION I. DEAN'S HONOUR LIST - UNDERGRADUATE STUDENTS II. GRADUATION III. HONOURS DESIGNATIONS IN THE IVEY GRADUATE PROGRAMS DENTISTRY - PROGRAM REQUIREMENTS AND PROGRESSION GOLD MEDALS GRADUATION REQUIREMENTS - UNDERGRADUATE DEGREES 1.0 GRADUATION REQUIREMENTS FOR HONOURS BACHELOR DEGREES 2.0 GRADUATION REQUIREMENTS FOR BACHELOR DEGREES (FOUR-YEAR) 3.0 GRADUATION REQUIREMENTS FOR BACHELOR DEGREES (THREE-YEAR) INFORMATION AND MEDIA STUDIES - PROGRESSION REQUIREMENTS PROGRESSION AND GRADUATION
+
+--- CHUNK 3 ---
+Source: ACD003.html
+Characters: 996
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Academic Rights and Responsibilities ACADEMIC ACCOMMODATION FOR STUDENTS WITH DISABILITIES Policy Statement Purpose of Academic Accommodation Procedures Definitions Responsibilities Establishing Reasonable Academic Accommodations Implementation of an Accommodation within a Classroom or Similar Context Appeal Procedures Appeal of a Decision Establishing Academic Accommodations Appeal of a Dispute regarding the Implementation of an Accommodation ACADEMIC ACCOMMODATION OF STUDENTS IN THE RESERVE FORCES ACADEMIC CONSIDERATION - UNDERGRADUATE STUDENTS IN FIRST ENTRY PROGRAMS I. Purpose II. Statement of Principles III. Policy IV. Appeals Procedure for Academic Consideration – Undergraduate Students in First Entry Programs ACADEMIC SANCTIONS ACCOMMODATION FOR RELIGIOUS HOLIDAYS ACCOMODATION FOR POLITICAL CANDIDACY OF STUDENTS INSTRUCTOR-STUDENT CONFLICT OF INTEREST OFFICIAL STUDENT RECORD INFORMATION PRIVACY Definitions
+
+--- CHUNK 4 ---
+Source: ACD004.html
+Characters: 998
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Courses by Subject Enrolment in each course is limited and in some cases the demand exceeds that limit. The University is unable to guarantee registration in any particular course and reserves the right to withdraw course offerings. Courses are assigned to three Categories and students must take 1.0 course from each Category before graduation. For more information, see Breadth Requirements for Bachelor Degrees Some courses do not provide prerequisites for senior courses. Some senior courses are restricted to honours students. Some of the courses described in this section may not be offered in the coming year. Subject Breadth Category Campuses Actuarial Science CATEGORY C American Sign Language CATEGORY B American Studies CATEGORY A Analytics and Decision Sciences CATEGORY A Anatomy and Cell Biology CATEGORY C Animal Ethics and Sustainability Leadership CATEGORY A Anthropology CATEGORY A Applied Mathematics CATEGORY
+
+--- CHUNK 5 ---
+Source: ACD005.html
+Characters: 994
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Registration ACADEMIC ADVISING FOR UNDERGRADUATE STUDENTS ADDING/DROPPING COURSES COURSE LOAD FOR UNDERGRADUATE STUDENTS Normal Course Load Spring/Summer Sessions, including Distance Education COURSE NUMBERING, ESSAY COURSES, AND HOURS OF INSTRUCTION Course Numbering Policy For Undergraduate Courses Undergraduate Course Suffixes Undergraduate Course Offerings Modes of Course Delivery Essay Courses (Undergraduate Degrees) Hours of Instruction For Undergraduate Courses First Year Courses/Classes Graduate Course Offerings CRIMINAL RECORDS CHECK AND VULNERABLE SECTOR SCREENING Faculty of Health Sciences King's University College Schulich School of Medicine & Dentistry EXCHANGE COURSES EXPERIENTIAL LEARNING LETTER OF PERMISSION MANDATORY TRAINING FOR UNDERGRADUATE STUDENTS I. Preamble II. Western Academic Integrity Tutorial for Undergraduate Students (Academic Integrity Tutorial) III. Western Gender-Based and Sexual
+
+--- CHUNK 6 ---
+Source: ACD006.html
+Characters: 992
+Text: Academic Calendar - 2026 Western University Academic Calendar. - 2026 Examinations and Grading ACCESS TO AND RETENTION OF EXAMINATION PAPERS AND OTHER WORK COURSE CREDIT - UNDERGRADUATE Discovery Credits Additional Courses without Degree Credit Policy on Undergraduate Students Taking Graduate Courses ENGLISH LANGUAGE PROFICIENCY FOR ASSIGNMENT OF GRADES EVALUATION OF ACADEMIC PERFORMANCE Evaluation of Academic Performance First Year Courses - Teaching and Evaluation EXAMINATION CONFLICTS EXAMINATIONS - ADMINISTRATION Instruction For Candidates During Examinations Allocation of Proctors Duties of Chief Proctors During Examinations Division of Responsibilities Submitting Examinations to Examination Services for Accommodated Examinations EXAMINATIONS - ATTENDANCE REGULATIONS Attendance Failure to Appear at an Examination EXAMINATIONS - POSTING OF PRELIMINARY AND FINAL EXAMINATION TIMETABLES Preliminary Examination Timetable Final Examination Timetable EXAMINATIONS - SCHEDULING AND
+
+--- CHUNK 7 ---
+Source: ADV001.html
+Characters: 997
+Text: Academic Advising - Faculty of Arts & Humanities Arts & Humanities Academic Advising We're here to help you with your academic goals. Connect with our Academic Advisors if you need support with navigating Western's policies and procedures, registering for courses or changing your modules, special permission and more. Drop in to our office in University College or connect via the Support Portal. Welcome to Academic Advising! Faculty of Arts and Humanities Support Portal Your Degree Procedures Support Portal Opening Hours The Academic Advising Office will be closed on Wednesday, December 23rd, and will reopen on the morning of Monday, January 4, 2027. Please submit a ticket through our Support Portal. Submit a ticket through our Support Portal Visit our office in University College Room 2230 during the following hours. No appointment required. Weekday Morning hours Afternoon hours Monday & Wednesday 9:30 AM to NOON 1:00 PM to 4:00 PM Tuesday & Thursday CLOSED 1:00 PM to 4:00 PM Friday
+
+--- CHUNK 8 ---
+Source: ADV002.html
+Characters: 995
+Text: Undergraduate Services Welcome to the Undergraduate Services Office! Our team of experienced Academic Advisors, front-line office staff and Manager are always available to provide support and help in all academic matters. We are pleased to answer your questions related to the Western Experience; everything from student life and academic advising, to any other services available on campus. If you are a prospective student, please email futurewe@uwo.ca for assistance. Academic Advising & Absence Reporting Book an Advising Appointment Academic Consideration for Absences Student Medical Certificate Meet the Undergraduate Services Team Academic Support & Student Accommodation Student Accessibility Academic Support Tutor Information Online Forms International Career Services & Experiential Learning Career Services Experiential Learning Student Clubs Women in Engineering Leadership and Innovation 1st Year Students FAQs Flexible Programming Academic & Campus Supports First Year Guide-book
+
+--- CHUNK 9 ---
+Source: ADV003.html
+Characters: 994
+Text: Student Services and Academic Advising Student Services and Academic Advising Student Services and Academic Advising The Don Wright Faculty of Music Student Services area (Talbot College Room 210) offers academic advising, services and support to all undergraduate Music students. This office is responsible for the following: Confidential discussion regarding personal, medical or religious issues that affect performance and what accommodation is available Advice about eligibility for the various degrees and modules offered Assistance in interpreting academic policies and procedures Processing of recommendations from departments such as special permissions Assistance with registration procedures Scholarship inquiries Assistance and processing of forms including those required for withdrawal from the Faculty or University Letter of Permission inquiries Advisors To ensure that students receive the most accurate, current academic program information and advice, the appropriate advisor
+
+--- CHUNK 10 ---
+Source: ADV004.html
+Characters: 767
+Text: Science & Basic Medical Sciences Academic Advising Notices IMPORTANT DATES : Course Registration dates September 8 : Deadline for applications: Autumn Convocation September 9 : Classes Begin September 17 : Last day to add a Fall/Winter 24-week course or a Fall 12-week course September 30 : National Day for Truth and Reconciliation (observed at Western). No classes. October 10-18 : Fall Reading Week November 30 : Last day to withdraw from a Fall 12-week course without academic penalty December 9 : Last day of classes December 10 : Study day December 11-22 : December exam period *More Important Dates can be found in the Western Academic Calendar here . Current Topics First-year course registration guide First-year student registration tips Department advisors
